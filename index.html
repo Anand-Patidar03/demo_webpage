@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Self-Improvement Daily Rating</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>SELF-IMPROVEMENT</h1>
+            <p class="subtitle">Daily Physical & Mental Fitness</p>
+            
+            <div class="header-date">
+                <label for="entry-date">Date</label>
+                <div class="date-picker-container">
+                    <input type="date" id="entry-date">
+                </div>
+            </div>
+        </header>
+
+        <section class="main-score-card">
+            <div class="score-circle">
+                <div class="score-value" id="display-rating">--/10</div>
+            </div>
+            <div class="score-details">
+                <div id="display-label" class="rating-label">Enter your details</div>
+                <div id="display-score">-- / 100</div>
+            </div>
+            
+            <button type="button" id="rules-btn" class="btn-rules">View Scoring Rules</button>
+            
+            <details class="score-breakdown">
+                <summary>View Score Breakdown</summary>
+                <ul id="breakdown-list">
+                    <!-- Breakdown items injected via JS -->
+                </ul>
+            </details>
+        </section>
+
+        <!-- Rules Modal -->
+        <div id="rules-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Scoring Rules</h2>
+                    <button type="button" class="close-btn" id="close-rules-btn" aria-label="Close rules">&times;</button>
+                </div>
+                <div class="modal-body" id="rules-container">
+                    <!-- Injected via JS -->
+                </div>
+            </div>
+        </div>
+
+        <form id="tracker-form">
+            <section class="category-section">
+                <h2>Physical Fitness</h2>
+                
+                <div class="input-group">
+                    <label for="sleep">Sleep Duration (hours)</label>
+                    <input type="number" id="sleep" min="0" step="0.5" placeholder="e.g., 7.5">
+                    <span class="points-badge" id="badge-sleep">0</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="exercise">Exercise / Physical Activity (minutes)</label>
+                    <input type="number" id="exercise" min="0" step="1" placeholder="e.g., 45">
+                    <span class="points-badge" id="badge-exercise">0</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="walking">Walking / Outdoor Activity (minutes)</label>
+                    <input type="number" id="walking" min="0" step="1" placeholder="e.g., 30">
+                    <span class="points-badge" id="badge-walking">0</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="food">Food Quality</label>
+                    <select id="food">
+                        <option value="0" selected>Average</option>
+                        <option value="-5">Very poor / mostly junk</option>
+                        <option value="-3">Poor</option>
+                        <option value="3">Generally healthy</option>
+                        <option value="5">Healthy + good protein + reasonable portions</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="category-section">
+                <h2>Mental Fitness</h2>
+                
+                <div class="input-group">
+                    <label for="screenTime">Entertainment / Social Screen Time (hours)</label>
+                    <input type="number" id="screenTime" min="0" step="0.5" placeholder="e.g., 1.5">
+                    <span class="points-badge" id="badge-screenTime">0</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="phoneFreeMorning">Phone-free morning (minutes)</label>
+                    <input type="number" id="phoneFreeMorning" min="0" step="1" placeholder="e.g., 20">
+                    <span class="points-badge" id="badge-phoneFreeMorning">0</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="phoneFreeNight">Phone-free before sleep (minutes)</label>
+                    <input type="number" id="phoneFreeNight" min="0" step="1" placeholder="e.g., 30">
+                    <span class="points-badge" id="badge-phoneFreeNight">0</span>
+                </div>
+
+                <div class="input-group">
+                    <label for="selfControl">Self-Control</label>
+                    <select id="selfControl">
+                        <option value="0" selected>Normal day</option>
+                        <option value="-3">Repeatedly avoided important things</option>
+                        <option value="2">Did one uncomfortable thing</option>
+                        <option value="4">Did 2+ meaningful uncomfortable things</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label for="ruleSlip">Personal Rule Slip / Bad Habit</label>
+                    <select id="ruleSlip">
+                        <option value="0" selected>No slip</option>
+                        <option value="-1">Minor slip</option>
+                        <option value="-3">One significant lapse</option>
+                        <option value="-5">Repeated/significant lapses</option>
+                        <option value="-6">Multiple major lapses</option>
+                    </select>
+                </div>
+                
+                <div class="input-group">
+                    <label for="reflection">Daily Reflection Level</label>
+                    <select id="reflection">
+                        <option value="0" selected>Didn't write</option>
+                        <option value="1">Short reflection</option>
+                        <option value="2">Honest reflection + tomorrow's improvement</option>
+                    </select>
+                </div>
+            </section>
+            
+            <section class="category-section">
+                <h2>Reflection Notes</h2>
+                <div class="reflection-texts">
+                    <label for="wentWell">What went well today?</label>
+                    <textarea id="wentWell" rows="2" placeholder="..."></textarea>
+
+                    <label for="wentWrong">What went wrong?</label>
+                    <textarea id="wentWrong" rows="2" placeholder="..."></textarea>
+
+                    <label for="improveTomorrow">What will I improve tomorrow?</label>
+                    <textarea id="improveTomorrow" rows="2" placeholder="..."></textarea>
+                </div>
+            </section>
+
+            <section class="category-section">
+                <h2>Personal Care</h2>
+                
+                <div class="input-group">
+                    <label for="personalCare">Personal Care / Environment</label>
+                    <select id="personalCare">
+                        <option value="1" selected>Normal</option>
+                        <option value="-2">Neglected badly</option>
+                        <option value="3">Good personal care + reasonably clean environment</option>
+                    </select>
+                </div>
+            </section>
+
+            <div class="action-buttons">
+                <button type="button" id="save-btn" class="btn primary">Save Today's Entry</button>
+                <button type="button" id="reset-btn" class="btn secondary">Reset Day</button>
+            </div>
+            
+            <div id="save-confirmation" class="confirmation-msg hidden"></div>
+        </form>
+
+        <div class="history-controls">
+            <button type="button" id="history-toggle-btn" class="history-toggle">View History</button>
+        </div>
+
+        <div id="history-wrapper" class="history-section-wrapper">
+            <div class="history-section-inner">
+                <section class="history-section">
+                    <div id="weekly-summary">
+                        <!-- Summary injected via JS -->
+                    </div>
+                    <div id="history-list" class="history-list">
+                        <!-- History items injected via JS -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
