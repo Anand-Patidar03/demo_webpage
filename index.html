@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,13 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="app-container">
         <header>
             <h1>SELF-IMPROVEMENT</h1>
             <p class="subtitle">Daily Physical & Mental Fitness</p>
-            
+
             <div class="header-date">
                 <label for="entry-date">Date</label>
                 <div class="date-picker-container">
@@ -29,9 +31,9 @@
                 <div id="display-label" class="rating-label">Enter your details</div>
                 <div id="display-score">-- / 100</div>
             </div>
-            
+
             <button type="button" id="rules-btn" class="btn-rules">View Scoring Rules</button>
-            
+
             <details class="score-breakdown">
                 <summary>View Score Breakdown</summary>
                 <ul id="breakdown-list">
@@ -45,7 +47,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h2>Scoring Rules</h2>
-                    <button type="button" class="close-btn" id="close-rules-btn" aria-label="Close rules">&times;</button>
+                    <button type="button" class="close-btn" id="close-rules-btn"
+                        aria-label="Close rules">&times;</button>
                 </div>
                 <div class="modal-body" id="rules-container">
                     <!-- Injected via JS -->
@@ -56,7 +59,7 @@
         <form id="tracker-form">
             <section class="category-section">
                 <h2>Physical Fitness</h2>
-                
+
                 <div class="input-group">
                     <label for="sleep">Sleep Duration (hours)</label>
                     <input type="number" id="sleep" min="0" step="0.5" placeholder="e.g., 7.5">
@@ -89,7 +92,7 @@
 
             <section class="category-section">
                 <h2>Mental Fitness</h2>
-                
+
                 <div class="input-group">
                     <label for="screenTime">Entertainment / Social Screen Time (hours)</label>
                     <input type="number" id="screenTime" min="0" step="0.5" placeholder="e.g., 1.5">
@@ -128,7 +131,7 @@
                         <option value="-6">Multiple major lapses</option>
                     </select>
                 </div>
-                
+
                 <div class="input-group">
                     <label for="reflection">Daily Reflection Level</label>
                     <select id="reflection">
@@ -138,7 +141,7 @@
                     </select>
                 </div>
             </section>
-            
+
             <section class="category-section">
                 <h2>Reflection Notes</h2>
                 <div class="reflection-texts">
@@ -155,7 +158,7 @@
 
             <section class="category-section">
                 <h2>Personal Care</h2>
-                
+
                 <div class="input-group">
                     <label for="personalCare">Personal Care / Environment</label>
                     <select id="personalCare">
@@ -170,7 +173,7 @@
                 <button type="button" id="save-btn" class="btn primary">Save Today's Entry</button>
                 <button type="button" id="reset-btn" class="btn secondary">Reset Day</button>
             </div>
-            
+
             <div id="save-confirmation" class="confirmation-msg hidden"></div>
         </form>
 
@@ -192,6 +195,10 @@
         </div>
     </div>
 
+    <!-- Firebase SDK (v8) -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>

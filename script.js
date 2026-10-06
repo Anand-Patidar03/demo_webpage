@@ -572,14 +572,69 @@ function updateButtonText() {
 
 // Data Persistence
 const STORAGE_KEY = 'fitness_rating_entries';
+let cachedEntries = {};
+let database;
+
+// --- FIREBASE CONFIGURATION ---
+// PLEASE REPLACE THIS WITH YOUR FIREBASE CONFIG
+const firebaseConfig = {
+  apiKey: "AIzaSyAkiPj2QR-zxMTaM2Q-RDMpTxvBPOv0to",
+  authDomain: "self-improvement-app-aa8f9.firebaseapp.com",
+  projectId: "self-improvement-app-aa8f9",
+  storageBucket: "self-improvement-app-aa8f9.firebasestorage.app",
+  messagingSenderId: "1022167923077",
+  appId: "1:1022167923077:web:ce3179f97a90328dc4acec",
+  measurementId: "G-X40SSD6098",
+  databaseURL: "https://self-improvement-app-aa8f9-default-rtdb.firebaseio.com" // Added by Antigravity
+};
+
+// Initialize Firebase if config is provided
+if (firebaseConfig.apiKey) {
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    database = firebase.database();
+
+    // Listen for real-time updates
+    database.ref(STORAGE_KEY).on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+            cachedEntries = data;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); // Keep local backup
+        } else {
+            // Migration: If Firebase is empty, load from localStorage and sync it
+            const localSaved = localStorage.getItem(STORAGE_KEY);
+            if (localSaved) {
+                cachedEntries = JSON.parse(localSaved);
+                database.ref(STORAGE_KEY).set(cachedEntries);
+            }
+        }
+        
+        // Refresh UI if initialized
+        const selectedDate = DOM.dateInput?.value;
+        if (selectedDate) {
+            loadEntryForDate(selectedDate);
+            renderHistory();
+        }
+    });
+} else {
+    // Fallback if no firebaseConfig is provided yet
+    const saved = localStorage.getItem(STORAGE_KEY);
+    cachedEntries = saved ? JSON.parse(saved) : {};
+}
 
 function getEntries() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    return saved ? JSON.parse(saved) : {};
+    return cachedEntries;
 }
 
 function saveEntries(entries) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    cachedEntries = entries;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries)); // Local backup
+    if (database) {
+        database.ref(STORAGE_KEY).set(entries).catch(error => {
+            console.error("Firebase sync error: ", error);
+        });
+    }
 }
 
 function handleDateChange() {
